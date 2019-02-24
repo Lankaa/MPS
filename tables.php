@@ -6,21 +6,34 @@
  * Time: 16:38
  */
 
+
+function getHashByString($string){
+	$length = strlen($string) - 1;
+	$hash   = 0;
+
+	for ($i=0 ; $i < strlen($string); $i++ ) { 
+		$hash += ord($string[$i]);
+	}
+	return $hash;
+}
+
 $list = json_decode(file_get_contents("list.json"), true);
 $list = $list["items"];
 
-$example = 'x';
+$example = "z";
+
+
 
 
 
 $itemsHash = [];
 
 foreach ($list as $item) {
-    $itemsHash[ord($item)] = $item;
+    $itemsHash[getHashByString($item)] = $item;
 }
 
 var_dump($itemsHash);
-var_dump($itemsHash[ord($example)]);
+var_dump($itemsHash[getHashByString($example)]);
 
 
 
