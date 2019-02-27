@@ -1,11 +1,12 @@
 <?php
 function getHashByString($string) {
-	$length = strlen($string) - 1;
+	$length = strlen($string);
 	$hash = 0;
 
-	for ($i = 0; $i < strlen($string); $i++) {
+	for ($i = 0; $i < $length; $i++) {
 		$hash += ord($string[$i]);
 	}
+
 	return $hash;
 }
 
@@ -23,6 +24,7 @@ function findValueInArray($value, $array) {
 
 	while (isset($array[$hash])) {
 		$hash++;
+
 		if ($array[$hash] == $value) {
 			return $hash;
 		}
