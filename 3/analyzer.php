@@ -3,7 +3,7 @@
 class Analyzer {
 	private $code;
 
-	private const KEYWORD = ['main', 'for'];
+	private const KEYWORD = ['main', 'for', 'int'];
 	private const VARIABLES = 'int.(.*);';
 	private const SEPARATOR = ['\(', '\)', '\{', '\}', '\,', '\;', '\+', '\<', '\>', '\=', '\*'];
 
@@ -20,7 +20,7 @@ class Analyzer {
 					$preparedResponse[] = $invalue;
 				}
 			} else {
-				$preparedResponse[] = $invalue;
+				$preparedResponse[] = $value;
 			}
 		}
 		return $preparedResponse;
