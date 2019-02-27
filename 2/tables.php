@@ -11,8 +11,6 @@ $itemsHash = [];
  * fill hash array
  */
 
-$start = time();
-
 foreach ($list as $item) {
 	$hash = getHashByString($item);
 	$hashIsSet = isset($itemsHash[$hash]);
@@ -36,16 +34,16 @@ foreach ($list as $item) {
 	}
 }
 
-var_dump(time() - $start);
-
-print_r(json_encode(["hash array" => $itemsHash]));
+//print_r(json_encode(["hash array" => $itemsHash]));
 print("\n");
 
 /*
  * search value in hash array
  */
-
-print_r(json_encode(["key for value($example) in hash array" => findValueInArray($example, $itemsHash)]));
+$startTime = microtime(true);
+findValueInArray($example, $itemsHash);
+$workTime = microtime(true) - $startTime;
+print_r(json_encode(["search in hash array" => $workTime]));
 print("\n");
 
 $itemsSimple = [];
@@ -59,11 +57,16 @@ foreach ($list as $item) {
 	$itemsSimple[] = $item;
 }
 
-print(json_encode(["simple array" => $itemsSimple]));
+//print(json_encode(["simple array" => $itemsSimple]));
 print("\n");
 
 /*
  * find example in simple array
  */
-print_r(json_encode(["key for value($example) in simple array" => array_search($example, $itemsSimple)]));
+$startTime = 0;
+$startTime = microtime(true);
+array_search($example, $itemsSimple);
+$workTime = microtime(true) - $startTime;
+print_r(json_encode(["search in simple array" => $workTime]));
+//print_r(json_encode(["key for value($example) in simple array" => array_search($example, $itemsSimple)]));
 print("\n");
