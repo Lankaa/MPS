@@ -1,47 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lanka
- * Date: 17.02.19
- * Time: 16:38
- */
-
-function getHashByString($string) {
-	$length = strlen($string) - 1;
-	$hash = 0;
-
-	for ($i = 0; $i < strlen($string); $i++) {
-		$hash += ord($string[$i]);
-	}
-	return $hash;
-}
-
-function findValueInArray($value, $array) {
-
-	$hash = getHashByString($value);
-
-	if (empty($array[$hash])) {
-		return null;
-	}
-
-	if ($array[$hash] == $value) {
-		return $hash;
-	}
-
-	while (isset($array[$hash])) {
-		$hash++;
-		if ($array[$hash] == $value) {
-			return $hash;
-		}
-	}
-}
+require_once 'lib.php';
 
 $list = json_decode(file_get_contents("list.json"), true);
 $list = $list["items"];
 
-$example = 'x';
-
+$example = '1x';
 $itemsHash = [];
+
+/*
+ * fill hash array
+ */
+
+$start = time();
 
 foreach ($list as $item) {
 	$hash = getHashByString($item);
@@ -66,11 +36,23 @@ foreach ($list as $item) {
 	}
 }
 
-print_r(json_encode($itemsHash));
+var_dump(time() - $start);
+
+print_r(json_encode(['hash array' => $itemsHash]));
+print("\n");
+
+/*
+ * search value in hash array
+ */
+
+print_r(json_encode(["key for value($example) in hash array" => findValueInArray($example, $itemsHash)]));
 print("\n");
 
 $itemsSimple = [];
 
+/*
+ * fill simple array
+ */
 foreach ($list as $item) {
 	if (in_array($item, $itemsSimple)) {
 		continue;
@@ -79,7 +61,11 @@ foreach ($list as $item) {
 	$itemsSimple[] = $item;
 }
 
-print(json_encode($itemsSimple));
+print(json_encode(['simple array ' => $itemsSimple]));
 print("\n");
-print(json_encode($itemsSimple[array_search($example, $itemsSimple)]));
+
+/*
+ * find example in simple array
+ */
+print_r(json_encode(["key for value($example) in hash array" => $itemsSimple[array_search($example, $itemsSimple)]]));
 print("\n");
