@@ -1,7 +1,7 @@
 <?php
 require_once 'lib.php';
 
-$list = json_decode(file_get_contents("list.json"), true);
+$list = json_decode(file_get_contents("2/list.json"), true);
 $list = $list["items"];
 
 $example = 'variable';
