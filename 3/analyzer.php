@@ -32,7 +32,8 @@ class Analyzer {
 	}
 
 	public function getKeyword() {
-		return $this->prepareResponse($this->analyze(join('|', self::KEYWORD)));
+		return array_values(array_unique($this->prepareResponse($this->analyze(join('|', self::KEYWORD)))));
+
 	}
 
 	public function getSeparator() {
